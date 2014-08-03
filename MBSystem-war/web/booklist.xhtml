@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bookListController.pageTitle}" />
+        </ui:define>
+
+        <ui:define name="content">
+
+            <!-- List of books (all, matched a category or matched a search query -->
+
+            <div class="booklist">
+                <h2>
+                    <h:outputText value="#{bookListController.listTitle}"/>
+                </h2>
+                <ui:repeat var="book" value="#{bookListController.matchedBooks}" varStatus="status">
+                    <div class="bookthumb">
+                        <h:form>
+                            <h:commandLink action="#{bookDetailsController.displayBookDetails()}">
+                                <img class="bookMediumImg" src="#{book.imageUrl}" />
+                                <h5>
+                                    <h:outputText value="#{book.title}"/>
+                                </h5>
+                                <f:param name="id" value="#{book.id}" />
+                            </h:commandLink>
+                        </h:form>
+                        <h:outputText value="By #{book.author}"/>
+                    </div>
+                </ui:repeat>
+            </div>
+
+            <!-- Side bar for displaying a list of categories -->
+
+            <div class="sideBar"> 
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            By Category
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <h:form>
+                            <a>
+                                <p>
+                                    <h:commandLink action="#{bookListController.displayCategorizedBooks()}">
+                                        All categories
+                                        <f:param name="category" value="All categories" />
+                                    </h:commandLink>
+                                </p>
+                            </a>                          
+                            <ui:repeat var="category" value="#{bookListController.categoryList}" varStatus="status">
+                                <h:commandLink action="#{bookListController.displayCategorizedBooks()}">
+                                    <p>
+                                        <h:outputText value="#{category.category}"/>
+                                    </p>
+                                    <f:param name="category" value="#{category.category}" />
+                                </h:commandLink>
+                            </ui:repeat>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

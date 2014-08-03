@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <f:metadata>
+        <f:viewParam name="categoryId" value="#{bookController.categoryId}" />
+    </f:metadata>
+
+    <ui:define name="title">
+        Manage Books | List of Books
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Books | List of Books</h2>
+        <hr />
+        <h:form styleClass="crud_list_form">
+            <h:messages class="errorMessage" />
+            <h:outputText escape="false" value="No Books." rendered="#{bookController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{bookController.items.rowCount > 0}">
+                <ul class="commandButtons">
+                    <li><h:commandLink action="#{bookController.prepareCreate}" value="Create New Book"/></li>
+                    <li style="float: right;"><h:commandLink action="#{bookController.previous}" value="Previous #{bookController.pagination.pageSize} books" rendered="#{bookController.pagination.hasPreviousPage}"/></li>
+                    <li style="float: right;"><h:commandLink action="#{bookController.next}" value="Next #{bookController.pagination.pageSize} books >>" rendered="#{bookController.pagination.hasNextPage}"/></li>  
+                </ul>
+                <h:dataTable value="#{bookController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="crud_odd_row,crud_even_row" rules="all">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Title"/>
+                        </f:facet>
+                        <h:outputText value="#{item.title}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Author"/>
+                        </f:facet>
+                        <h:outputText value="#{item.author}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Publisher"/>
+                        </f:facet>
+                        <h:outputText value="#{item.publisher}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Publish Date"/>
+                        </f:facet>
+                        <h:outputText value="#{item.publishDate}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ISBN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.isbn}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Available"/>
+                        </f:facet>
+                        <h:outputText value="#{item.available}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{bookController.prepareView}" value="View"/>  |  
+                        <h:commandLink action="#{bookController.prepareEdit}" value="Edit"/>  |  
+                        <h:commandLink onclick="return confirm('Are you sure to delete this book?\n All loans and comments associated will be deleted!');" 
+                                       action="#{bookController.destroy}" value="Delete"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

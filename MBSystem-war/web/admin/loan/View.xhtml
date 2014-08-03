@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="Manage Loans | View Loan #{loanController.selectedLoan.id}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h2><h:outputText value="Manage Loans | View Loan #{loanController.selectedLoan.id}"></h:outputText></h2>
+            <hr />
+            <h:messages class="errorMessage" />
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Book:" for="book" />
+                <h:outputText value="#{loanController.selectedLoan.book.toString()}" title="Book"/>
+                <h:outputLabel value="Patron:" for="patron" />
+                <h:outputText value="#{loanController.selectedLoan.patron.toString()}" title="Patron"/>
+                <h:outputLabel value="Loan Date:" for="loanDate" />
+                <h:outputText value="#{loanController.selectedLoan.loanDate}" title="Loan Date"/>
+                <h:outputLabel value="Due Date:" for="dueDate" />
+                <h:outputText value="#{loanController.selectedLoan.dueDate}" title="Due Date"/>
+                <h:outputLabel value="Returned:" for="returned" />
+                <h:outputText value="#{loanController.selectedLoan.returned}" title="Returned"/>
+                <h:outputLabel value="Overdue:" for="overdue" />
+                <h:outputText value="#{loanController.selectedLoan.overdue}" title="Overdue"/>
+            </h:panelGrid>
+
+            <hr />
+
+            <ul class="commandButtons">
+                <li><h:commandLink class="btn btn-success" action="Edit" value="Edit"/></li>    
+                <li><h:commandLink class="btn btn-warning" 
+                                   onclick="return confirm('Are you sure to delete this loan?');" 
+                                   action="#{loanController.destroyAndView}" 
+                                   value="Delete"/></li>
+                <li><h:commandLink class="btn btn-info" action="#{loanController.prepareList}" value="Back to List"/></li>
+            </ul>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

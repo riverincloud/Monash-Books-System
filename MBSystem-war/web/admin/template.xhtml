@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- ############## 
+    Administration Site's template 
+    ############## -->
+
+    <h:head>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"></link>
+        <h:outputStylesheet library="css" name="layout.css" />        
+        <h:outputStylesheet library="css" name="crud.css" />
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        
+        <title>
+            <ui:insert name="title" />
+        </title>
+    </h:head>
+
+    <h:body>
+        <!-- ############## HEADER ############## -->
+        <div id="header">
+
+            <!-- ############## "Back to Main Site" button ############## -->
+            <div id="topbar">
+                <ui:insert name="topbar">
+                    <ui:include src="/admin/topbar.xhtml" />
+                </ui:insert>
+            </div>            
+            <div class="clear" />
+
+            <!-- ############## menu section ############## -->
+            <div id="menubar">
+                <ui:insert name="menubar">
+                    <ui:include src="/admin/menubar.xhtml" />
+                </ui:insert>
+            </div>            
+        </div>
+        <div class="clear" />
+
+        <!-- ############## CONTENT ############## -->
+        <div id="wrapper">
+            <div id="content">
+                <ui:insert name="content">                    
+                </ui:insert>
+            </div>
+        </div>
+        <div class="clear" />
+
+        <!-- ############## FOOTER ############## -->
+        <div id="footer">
+            Copyright © Monash Books 2013 All Rights Reserved.
+        </div>
+
+    </h:body>
+
+</html>

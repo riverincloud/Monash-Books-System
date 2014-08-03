@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!-- Show the login text box, the "Login" button and "Register" button if user not logged in -->
+    <h:form rendered="#{!userController.logged}"> 
+        <div id="loginBar">
+            <h:inputText class="loginInput" id="username" value="#{userController.username}" p:placeholder="email" />
+            <h:inputSecret class="loginInput" id="password" value="#{userController.password}" p:placeholder="password" />
+            <h:commandButton class="btn btn-success btn-xs" action="#{userController.login}"  value="Log in" />
+            <h:commandButton class="btn btn-warning btn-xs" action="register.xhtml"  value="Register" />
+        </div>        
+    </h:form>
+
+    <!-- When user is logged in -->
+    <h:form rendered="#{userController.logged}">
+
+        <!-- Show the link to patron profile if the user is a patron -->
+        <h:commandButton class="btn btn-success btn-xs" 
+                         action="#{profileController.displayProfile()}" 
+                         value="#{userController.authedUser.email}" 
+                         rendered="#{userController.patron}" />
+
+        <!-- Show the link to administration site if the user is an administrator -->
+        <h:commandLink class="btn btn-success btn-xs" action="#{userController.enterAdmin}" value="Administration Site" rendered="#{userController.admin}" />
+
+        <!-- Show the "Log out" button -->
+        <h:commandButton class="btn btn-warning btn-xs" action="#{userController.logout}" value="Log out"/>
+
+    </h:form>
+
+</ui:composition>

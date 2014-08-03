@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="Manage Books | View Book #{bookController.selectedBook.id}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h2><h:outputText value="Manage Books | View Book #{bookController.selectedBook.id}"></h:outputText></h2>
+            <hr />
+            <h:messages class="errorMessage" />
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Title:" for="title" />
+                <h:outputText value="#{bookController.selectedBook.title}" title="Title"/>
+                <h:outputLabel value="Author:" for="author" />
+                <h:outputText value="#{bookController.selectedBook.author}" title="Author"/>
+                <h:outputLabel value="Publisher:" for="publisher" />
+                <h:outputText value="#{bookController.selectedBook.publisher}" title="Publisher"/>
+                <h:outputLabel value="Publish Date:" for="publishDate" />
+                <h:outputText value="#{bookController.selectedBook.publishDate}" title="Publishment Date"/>
+                <h:outputLabel value="ISBN:" for="isbn" />
+                <h:outputText value="#{bookController.selectedBook.isbn}" title="ISBN"/>
+                <h:outputLabel value="Description:" for="description" />
+                <h:outputText value="#{bookController.selectedBook.description}" title="Description"/>
+                <h:outputLabel value="Image:" for="imageUrl" />
+                <img class="bookMediumImg" src="#{bookController.selectedBook.imageUrl}"></img>
+                <h:outputLabel value="Available:" for="available" />
+                <h:outputText value="#{bookController.selectedBook.available}" title="Available"/>
+                <h:outputLabel value="Categories:" for="category" />
+                <h:outputText value="#{bookController.selectedBook.categoryListToString()}" title="Category"/>
+            </h:panelGrid>
+
+            <hr />
+
+            <ul class="commandButtons">
+                <li><h:commandLink class="btn btn-success" action="Edit" value="Edit"/></li>
+                <li><h:commandLink class="btn btn-warning" onclick="return confirm('Are you sure to delete this book?\n All loans and comments associated will be deleted!');" 
+                                   action="#{bookController.destroyAndView}" value="Delete"/></li>                
+                <li><h:commandLink class="btn btn-info" action="#{bookController.prepareList}" value="Back to List"/></li>
+            </ul>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        Administration | Home
+    </ui:define>
+
+    <ui:define name="content">
+
+        <!-- Display a list of navigation links -->
+
+        <h:form>
+            <ul class="adminItem">
+                <li>
+                    <p>
+                        * To see the changes reflected on the main site (e.g. book deleted), you may need to log out from Administrator account first.
+                    </p>
+                </li>
+                <li>
+                    <h2>Manage Books</h2>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="book/List" value="List of Books"/>
+                    </h4>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="book/Create" value="Create New Book"/>
+                    </h4>
+                </li>
+                <li>
+                    <h2>Manage Categories</h2>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="category/List" value="List of Categories"/>
+                    </h4>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="category/Create" value="Create New Category"/>
+                    </h4>
+                </li>
+                <li>
+                    <h2>Manage Patrons</h2>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="patron/List" value="List of Patrons"/>
+                    </h4>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="patron/Create" value="Create New Patron"/>
+                    </h4>
+                </li>
+                <li>
+                    <h2>Manage Loans</h2>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="loan/List" value="List of Loans"/>
+                    </h4>
+                </li>
+                <li>
+                    <h2>Manage Comments</h2>
+                </li>
+                <li>
+                    <h4>
+                        <h:commandLink action="comment/List" value="List of Comments"/>
+                    </h4>
+                </li>
+            </ul>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

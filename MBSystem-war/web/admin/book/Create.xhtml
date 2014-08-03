@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Manage Books | Create New Book
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Books | Create New Book</h2>
+        <hr />
+        <h:form>
+            <h:messages class="errorMessage" />
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Title:" for="title" />
+                <h:inputText id="title" class="form-control" value="#{bookController.selectedBook.title}" title="Title" />
+                <h:outputLabel value="Author:" for="author" />
+                <h:inputText id="author" class="form-control" value="#{bookController.selectedBook.author}" title="Author" />
+                <h:outputLabel value="Publisher:" for="publisher" />
+                <h:inputText id="publisher" class="form-control" value="#{bookController.selectedBook.publisher}" title="Publisher" />
+                <h:outputLabel value="Publish Date (dd/mm/yyyy):" for="publishDate" />
+                <h:inputText id="publishDate" class="form-control" value="#{bookController.selectedBook.publishDate}" title="Publish Date" />
+                <h:outputLabel value="ISBN:" for="isbn" />
+                <h:inputText id="isbn" class="form-control" value="#{bookController.selectedBook.isbn}" title="ISBN" />
+                <h:outputLabel value="Description:" for="description" />
+                <h:inputTextarea id="description" class="form-control" rows="4" value="#{bookController.selectedBook.description}" title="Description" />
+                <h:outputLabel value="Image Url:" for="imageUrl" />
+                <h:inputText id="imageUrl" class="form-control" value="#{bookController.selectedBook.imageUrl}" title="Image Url" />
+                <h:outputLabel value="Available:" for="available" />
+                <h:selectOneMenu id="available" class="form-control" value="#{bookController.selectedBook.available}" title="Available" >                    
+                    <f:selectItem itemValue="True" itemLabel="Yes" />
+                    <f:selectItem itemValue="False" itemLabel="No" />
+                </h:selectOneMenu>
+
+                <h:outputLabel value="Categories:" for="categorys" />
+                <h:selectManyCheckbox id="categorys" 
+                                      class="form-control" 
+                                      layout="pageDirection"
+                                      value="#{bookController.categoryArray}"
+                                      title="Categories" 
+                                      required="true" 
+                                      requiredMessage="Select at least one category." >
+                    <f:converter converterId="categoryConverter" />
+                    <f:selectItems value="#{categoryController.itemsAvailableSelectMany}" />
+                </h:selectManyCheckbox>
+            </h:panelGrid>
+
+            <hr />
+
+            <ul class="commandButtons">
+                <li><h:commandLink class="btn btn-success" action="#{bookController.create}" value="Save" /></li>
+                <li><h:commandLink class="btn btn-warning" action="#{bookController.prepareList}" value="Cancel" immediate="true"/></li>
+            </ul>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

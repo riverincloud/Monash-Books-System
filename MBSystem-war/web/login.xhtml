@@ -1,0 +1,62 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    template="/template.xhtml"
+    xmlns:util="http://java.sun.com/jsf/composite/util"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:define name="title">
+        <h:outputText value="Login" />
+    </ui:define>
+
+    <ui:define name="content">
+
+        <!-- Login panel -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Login</h3>
+            </div>
+            <div class="panel-body">                         
+                <h:form id="loginForm">
+
+                    <!-- Show error messages -->
+                    <h:messages class="errorMessage" />
+
+                    <!-- Input -->
+                    <h:panelGroup rendered="#{!userController.logged}">
+                        <h:outputLabel value="Email" for="username" />
+                        <br />
+                        <h:inputText id="username" class="loginInput" 
+                                     value="#{userController.username}" p:placeholder="email"/>
+                        <br />
+                        <h:outputLabel value="Password" for="password" />
+                        <br />
+                        <h:inputSecret id="password" class="loginInput" 
+                                       value="#{userController.password}" p:placeholder="password" />
+                    </h:panelGroup>
+                    <br />
+                    <br />
+
+                    <!-- Show "Login" button if user is not logged in -->
+                    <h:commandButton class="btn btn-success"  
+                                     action="#{userController.login}" 
+                                     value="Log in" 
+                                     rendered="#{!userController.logged}" />
+
+                    <!-- Show "Log out" button if user is logged in - 
+                         in case of a log out failure, user may also be directed to this page  -->
+                    <h:commandButton class="btn btn-warning"  
+                                     action="#{userController.logout}" 
+                                     value="Log out" 
+                                     rendered="#{userController.logged}" />
+
+                </h:form>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

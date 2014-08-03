@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Manage Loans | List of Loans
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Loans | List of Loans</h2>
+        <hr />
+        <h:form styleClass="crud_list_form">
+            <h:messages class="errorMessage" />
+            <h:outputText escape="false" value="No Loans." rendered="#{loanController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{loanController.items.rowCount > 0}">
+                <ul class="commandButtons">
+                    <li style="float: right;"><h:commandLink action="#{loanController.previous}" value="Previous #{loanController.pagination.pageSize} loans" rendered="#{loanController.pagination.hasPreviousPage}"/></li>
+                    <li style="float: right;"><h:commandLink action="#{loanController.next}" value="Next #{loanController.pagination.pageSize} loans >>" rendered="#{loanController.pagination.hasNextPage}"/></li>  
+                </ul>
+                <h:dataTable value="#{loanController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="crud_odd_row,crud_even_row" rules="all">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Book"/>
+                        </f:facet>
+                        <h:outputText value="#{item.book.toString()}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Patron"/>
+                        </f:facet>
+                        <h:outputText value="#{item.patron.toString()}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Due Date"/>
+                        </f:facet>
+                        <h:outputText value="#{item.dueDate}"/>
+                    </h:column>                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Returned"/>
+                        </f:facet>
+                        <h:outputText value="#{item.returned}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Overdue"/>
+                        </f:facet>
+                        <h:outputText value="#{item.overdue}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{loanController.prepareView}" value="View"/>  |  
+                        <h:commandLink action="#{loanController.prepareEdit}" value="Edit"/>  |  
+                        <h:commandLink onclick="return confirm('Are you sure to delete this loan?');" 
+                                       action="#{loneController.destroy}" 
+                                       value="Delete"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

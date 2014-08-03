@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Manage Comments | List of Comments
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Comments | List of Comments</h2>
+        <hr />
+        <h:form styleClass="crud_list_form">
+            <h:messages class="errorMessage" />
+            <h:outputText escape="false" value="No Comments." rendered="#{commentController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{commentController.items.rowCount > 0}">
+                <ul class="commandButtons">
+                    <li style="float: right;"><h:commandLink action="#{commentController.previous}" value="Previous #{commentController.pagination.pageSize} comments" rendered="#{commentController.pagination.hasPreviousPage}"/></li>
+                    <li style="float: right;"><h:commandLink action="#{commentController.next}" value="Next #{commentController.pagination.pageSize} comments >>" rendered="#{commentController.pagination.hasNextPage}"/></li>  
+                </ul>
+                <h:dataTable value="#{commentController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="crud_odd_row,crud_even_row" rules="all">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Book"/>
+                        </f:facet>
+                        <h:outputText value="#{item.book.toString()}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Patron"/>
+                        </f:facet>
+                        <h:outputText value="#{item.patron.toString()}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Comment Date"/>
+                        </f:facet>
+                        <h:outputText value="#{item.commentDate}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{commentController.prepareView}" value="View"/>  |  
+                        <h:commandLink onclick="return confirm('Are you sure to delete this comment?');" 
+                                       action="#{commentController.destroy}" 
+                                       value="Delete"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

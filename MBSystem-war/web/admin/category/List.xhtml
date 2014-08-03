@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Manage Categories | List of Categories
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Categories | List of Categories</h2>
+        <hr />
+        <h:form styleClass="crud_list_form">
+            <h:messages class="errorMessage" />
+            <h:outputText escape="false" value="No Categories." rendered="#{categoryController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{categoryController.items.rowCount > 0}">
+                <ul class="commandButtons">
+                    <li><h:commandLink action="#{categoryController.prepareCreate}" value="Create New Category"/></li>
+                    <li style="float: right;"><h:commandLink action="#{categoryController.previous}" value="Previous #{categoryController.pagination.pageSize} categories" rendered="#{categoryController.pagination.hasPreviousPage}"/></li>
+                    <li style="float: right;"><h:commandLink action="#{categoryController.next}" value="Next #{categoryController.pagination.pageSize} categories >>" rendered="#{categoryController.pagination.hasNextPage}"/></li>  
+                </ul>
+                <h:dataTable value="#{categoryController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="crud_odd_row,crud_even_row" rules="all">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Category"/>
+                        </f:facet>
+                        <h:outputText value="#{item.category}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{categoryController.prepareView}" value="View"/>  |  
+                        <h:commandLink action="#{categoryController.prepareEdit}" value="Edit"/>  |  
+                        <h:commandLink onclick="return confirm('Are you sure to delete this category?');" 
+                                       action="#{categoryController.destroy}" value="Delete"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

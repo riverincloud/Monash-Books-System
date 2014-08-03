@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Manage Patrons|List of Patrons
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Patrons | List of Patrons</h2>
+        <hr />
+        <h:form styleClass="crud_list_form">
+            <h:outputText escape="false" value="No patrons." rendered="#{patronController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{patronController.items.rowCount > 0}">
+                <ul class="commandButtons">
+                    <li><h:commandLink action="#{patronController.prepareCreate}" value="Create New Patron"/></li>
+                    <li style="float: right;"><h:commandLink action="#{patronController.previous}" value="Previous #{patronController.pagination.pageSize} patrons" rendered="#{patronController.pagination.hasPreviousPage}"/></li>
+                    <li style="float: right;"><h:commandLink action="#{patronController.next}" value="Next #{patronController.pagination.pageSize} patrons >>" rendered="#{patronController.pagination.hasNextPage}"/></li>
+                </ul>
+                <h:dataTable value="#{patronController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="crud_odd_row,crud_even_row" rules="all" >
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <h:outputText value="#{item.email}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Mobile"/>
+                        </f:facet>
+                        <h:outputText value="#{item.mobile}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{patronController.prepareView}" value="View"/>  |  
+                        <h:commandLink action="#{patronController.prepareEdit}" value="Edit"/>  |  
+                        <h:commandLink onclick="return confirm('Are you sure to delete this patron?\n All loans and comments associated will be deleted!');"  
+                                       action="#{patronController.destroy}" value="Delete"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

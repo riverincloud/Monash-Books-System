@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        <h:outputText value="Manage Comments | View Comment #{commentController.selectedComment.id}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h2><h:outputText value="Manage Comments | View Comment #{commentController.selectedComment.id}"></h:outputText></h2>
+            <hr />
+            <h:messages class="errorMessage" />
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Book:" for="book" />
+                <h:outputText value="#{commentController.selectedComment.book.toString()}" title="Book"/>
+                <h:outputLabel value="Patron:" for="patron" />
+                <h:outputText value="#{commentController.selectedComment.patron.toString()}" title="Patron"/>
+                <h:outputLabel value="Review:" for="review" />
+                <h:outputText value="#{commentController.selectedComment.review}" title="Review"/>
+                <h:outputLabel value="Comment Date:" for="commentDate" />
+                <h:outputText value="#{commentController.selectedComment.commentDate}" title="Comment Date"/>
+            </h:panelGrid>
+
+            <hr />
+
+            <ul class="commandButtons">
+                <li><h:commandLink class="btn btn-warning" 
+                                   onclick="return confirm('Are you sure to delete this comment?');" 
+                                   action="#{commentController.destroyAndView}" 
+                                   value="Delete"/></li>                
+                <li><h:commandLink class="btn btn-info" action="#{commentController.prepareList}" value="Back to List"/></li>
+            </ul>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

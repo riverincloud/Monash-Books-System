@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        Manage Patrons | Create New Patron
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Manage Patrons | Create New Patron</h2>
+        <hr />
+        <h:form>
+            <h:messages class="errorMessage" />
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Email:" for="email" />
+                <h:inputText id="email" class="form-control" value="#{patronController.selectedPatron.email}" title="Email" />
+                <h:outputLabel value="Name:" for="name" />
+                <h:inputText id="name" class="form-control" value="#{patronController.selectedPatron.name}" title="Name" />
+                <h:outputLabel value="Mobile Number:" for="mobile" />
+                <h:inputText id="city" class="form-control" value="#{patronController.selectedPatron.mobile}" title="Mobile Number" />
+                <h:outputLabel value="Password:" for="password" />
+                <h:inputSecret id="password" class="form-control" value="#{patronController.selectedPatron.password}" title="Password" />
+                <h:outputLabel value="Re-enter password:" for="rePassword" />
+                <h:inputSecret id="rePassword" class="form-control" value="#{patronController.rePassword}" title="Re-enter Password" />
+                
+            </h:panelGrid>
+
+            <hr />
+
+            <ul class="commandButtons">
+                <li><h:commandLink class="btn btn-success" action="#{patronController.create}" value="Save" /></li>
+                <li><h:commandLink class="btn btn-warning" action="#{patronController.prepareList}" value="Cancel" immediate="true"/></li>
+            </ul>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

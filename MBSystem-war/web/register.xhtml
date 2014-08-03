@@ -1,0 +1,65 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    template="/template.xhtml"
+    xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <ui:define name="title">
+        <h:outputText value="Register" />
+    </ui:define>
+
+    <ui:define name="content">
+
+        <!-- The registration form -->
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Registration (*all fields required)</h2>
+            </div>
+            <div class="panel-body">                       
+                <h:form id="registerForm" rendered="#{!userController.logged}">
+
+                    <!-- Display feedbacks, e.g. error messages -->
+                    <h:messages class="errorMessage" />
+
+                    <!-- Input section -->
+                    <h:outputLabel value="Email" for="email" />
+                    <br />
+                    <h:inputText id="email" class="registerInput" 
+                                 value="#{patronController.selectedPatron.email}" title="email" />
+                    <br />
+                    <h:outputLabel value="Name" for="name" />
+                    <br />
+                    <h:inputText id="name" class="registerInput" 
+                                 value="#{patronController.selectedPatron.name}" title="name" />
+                    <br />
+                    <h:outputLabel value="Mobile" for="mobile" />
+                    <br />
+                    <h:inputText id="mobile" class="registerInput" 
+                                 value="#{patronController.selectedPatron.mobile}" title="mobile" />   
+                    <br />
+                    <h:outputLabel value="Password" for="password" />
+                    <br />
+                    <h:inputSecret id="password" class="registerInput" 
+                                   value="#{patronController.selectedPatron.password}" title="password" />
+                    <br />    
+                    <h:outputLabel value="Re-enter password" for="rePassword" />
+                    <br />
+                    <h:inputSecret id="rePassword" class="registerInput" 
+                                   value="#{patronController.rePassword}" title="rePassword" />
+                    <br />
+                    <br />
+
+                    <!-- Submit and Cancel buttons -->
+                    <h:commandButton class="btn btn-success"  action="#{patronController.createAndView}" value="Submit" />
+                    <h:commandButton class="btn btn-warning"  action="/index.xhtml" value="Cancel" immediate="true" />
+
+                </h:form>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

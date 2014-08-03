@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- Header - menu section -->
+
+    <ul id="menu">
+        <h:form>
+            <li class="menuItem">
+                <h1>Monash Books</h1>
+            </li>
+
+            <!-- Navigation links -->
+            <li class="menuItem nav">
+                <h:commandLink action="index.xhtml" value="Home" />
+            </li>        
+            <li class="menuItem nav">
+                <h:commandLink action="#{bookListController.displayCategorizedBooks()}" value="Book Collection">
+                    <f:param name="category" value="All categories" />
+                </h:commandLink>
+            </li>
+
+            <!-- Search bar -->
+            <li class="menuItem">
+                <div id="search">
+                    <h:inputText class="searchText form-control" value="#{bookListController.searchQuery}" p:placeholder="enter (part of) title or author"/>
+                    <h:commandButton class="btn btn-info" action="#{bookListController.displaySearchedBooks()}" value="Search" />
+                </div>
+            </li>
+        </h:form>
+    </ul>
+
+</ui:composition>

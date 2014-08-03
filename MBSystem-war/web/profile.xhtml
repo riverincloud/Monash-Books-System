@@ -1,0 +1,172 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    template="/template.xhtml"
+    xmlns:util="http://java.sun.com/jsf/composite/util">
+
+    <ui:define name="title">
+        <h:outputText value="Profile" />
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h2>
+            <h:outputText value="Welcome, #{profileController.currentPatron.name}"/>
+        </h2>
+        <hr />
+
+        <!-- Personal Info panel -->
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    My Personal Info
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div id="personalDetail">
+                    <p>
+                        <b>Email: </b>
+                        <h:outputText value="#{profileController.currentPatron.email}"/>
+                    </p>
+                    <p>
+                        <b>Mobile Number: </b>
+                        <h:outputText value="#{profileController.currentPatron.mobile}"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patron's loans panel -->
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    My Loans
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                <!-- If no loans found -->
+                <p>
+                    <h:outputText value="#{profileController.loanMessage}" 
+                                  rendered="#{empty profileController.myLoans}" />
+                </p>
+                <ui:repeat var="loan" value="#{profileController.myLoans}" varStatus="status">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">                            
+                            <h:form>
+                                <h:commandLink action="#{bookDetailsController.displayBookDetails()}">
+                                    <b><h:outputText value="#{loan.book.title}"/></b>
+                                    <h:outputText value=" by #{loan.book.author}" />
+                                    <f:param name="id" value="#{loan.book.id}" />
+                                </h:commandLink>
+                                <h:commandLink class="btn btn-success btn-xs" style="float: right;" 
+                                               rendered="#{!loan.returned}" 
+                                               action="#{profileController.returnBook()}" 
+                                               value="Return Book" >
+                                    <f:param name="id" value="#{loan.id}" />
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                        <div class="panel-body">
+                            <b>Loan date: </b>
+                            <h:outputText value="#{loan.loanDate}" />
+                            <b>;     Due date: </b>
+                            <h:outputText value="#{loan.dueDate}" />
+                            <h:outputText style="float: right; color: red; font-weight: bold; margin-right: 30px" value="Overdue" rendered="#{loan.overdue}"/>
+                            <h:outputText style="float: right; color: blueviolet; font-weight: bold; margin-right: 30px" value="Returned" rendered="#{loan.returned}"/>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </div>
+
+        <!-- Patron's bookmarks panel -->
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    My Bookmarks
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                <!-- If no bookmarks found -->
+                <p>
+                    <h:outputText value="#{profileController.bookmarkMessage}" 
+                                  rendered="#{empty profileController.myBookmarks}" />
+                </p>
+
+                <!-- List of bookmarks, using book images -->
+                <div class="bookmarklist">
+                    <ui:repeat var="book" value="#{profileController.myBookmarks}" varStatus="status">
+                        <div class="bookmarkthumb">
+                            <h:form>
+                                <h:commandLink class="btn btn-danger btn-xs" 
+                                               style="float: right" 
+                                               onclick="return confirm('Are you sure to remove this bookmark?');" 
+                                               action="#{profileController.removeBookmark()}"
+                                               value="X">
+                                    <f:param name="id" value="#{book.id}" />
+                                </h:commandLink>                               
+                                <h:commandLink action="#{bookDetailsController.displayBookDetails()}">
+                                    <img class="bookSmallImg" src="#{book.imageUrl}" />
+                                    <f:param name="id" value="#{book.id}" />
+                                </h:commandLink>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patron's comments panel -->
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    My Comments
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                <!-- If no comments found -->
+                <p>
+                    <h:outputText value="#{profileController.commentMessage}" 
+                                  rendered="#{empty profileController.myComments}" />
+                </p>
+                <ui:repeat var="comment" value="#{profileController.myComments}" varStatus="status">                    
+                    <div class="panel panel-default">
+                        <div class="panel-heading">                            
+                            <h:form>
+                                <h:commandLink action="#{bookDetailsController.displayBookDetails()}">
+                                    <b><h:outputText value="#{comment.book.title}"/></b>
+                                    <h:outputText value=" by #{comment.book.author}" />
+                                    <f:param name="id" value="#{comment.book.id}" />
+                                </h:commandLink>
+                                <h:commandLink class="btn btn-danger btn-xs" 
+                                               style="float: right" 
+                                               onclick="return confirm('Are you sure to delete this comment?');" 
+                                               action="#{profileController.removeComment()}"
+                                               value="X">
+                                    <f:param name="id" value="#{comment.id}" />
+                                </h:commandLink> 
+                            </h:form>
+                        </div>
+                        <div class="panel-body">
+                            <h:outputText value="#{comment.commentDate}"/>
+                            <br />
+                            <h:outputText value="#{comment.review}" />
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </div>      
+
+    </ui:define>
+
+</ui:composition>
+

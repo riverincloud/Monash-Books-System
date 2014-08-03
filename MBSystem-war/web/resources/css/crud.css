@@ -1,0 +1,122 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+root { 
+    display: block;
+}
+
+table {
+    empty-cells: show;
+    border:0px;
+}
+
+/*th {
+    background-color:#0088cc;
+    color: #ffffff;
+    height: 25px;
+    text-align: left;
+    font-weight: bold;
+    font-size:14px;
+    padding: 0px;
+    padding-left: 10px;
+}*/
+
+td {
+    vertical-align: top;
+    padding-bottom: 6px;
+    font-size: 16px;
+}
+
+form.crud_list_form th, td th {
+    background-color: #0088cc;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b2d5d6;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: left;
+    padding: 6px;
+}
+
+form.crud_list_form td, td td {
+    border-style: dotted;
+    border-width: 1px;
+    border-color: #b2d5d6;
+    vertical-align: baseline;
+    padding: 6px;
+}
+
+tr.crud_odd_row {
+    background-color: #fefeff;
+    color: #000000;
+}
+
+tr.crud_even_row {
+    background-color: #eff5fa;
+    color: #000000;
+}
+
+/* book editing page
+----------------------------------------------------------*/
+#editAddBtn {
+    padding-left: 120px;
+}
+
+#editBookTb {
+    height: 500px;
+}
+
+.tdtitle {
+    width: 40px;
+}
+
+.tdvalue {
+    width: 270px;
+}
+
+.calendarInput {
+    width: 220px;
+    float: left;
+}
+
+.glyphicon-calendar {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+label {
+    width: 300px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    padding-right: 10px;
+}
+
+input {
+    background-color: #eff5fa;
+    border: solid 1px #b2d5d6;
+    font-size: 18px;
+    padding: 3px;
+}
+
+.adminItem {
+    list-style-type: none;
+    list-style-position: inside;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.commandButtons {
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+}
+
+.commandButtons li {
+    list-style: none;
+    display: inline;
+    font-size: 18px;
+}

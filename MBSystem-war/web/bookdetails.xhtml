@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="template.xhtml">
+
+        <ui:define name="Title">
+            <h:outputText value="#{bookDetailsController.pageTitle}"/>
+        </ui:define>
+
+        <ui:define name="content">
+
+            <!-- Book details -->
+
+            <div class="bookdetails">
+                <hr />
+
+                <!-- Book image large size -->
+                <div class="bookLargeImg">
+                    <img src="#{bookDetailsController.currentBook.imageUrl}" />
+                </div>
+
+                <!-- Book textual info -->
+                <div class="bookInfo">
+                    <h2>
+                        <h:outputText value="#{bookDetailsController.currentBook.title}"/>
+                    </h2>
+                    <br />
+                    <p>
+                        <b>Author: </b><h:outputText value="#{bookDetailsController.currentBook.author}"/>
+                    </p>
+                    <p>
+                        <b>ISBN: </b><h:outputText value="#{bookDetailsController.currentBook.isbn}"/>
+                    </p>
+                    <p>
+                        <b>Publisher: </b><h:outputText value="#{bookDetailsController.currentBook.publisher}"/>
+                    </p>
+                    <p>
+                        <b>Publish Date: </b><h:outputText value="#{bookDetailsController.currentBook.publishDate}"/>
+                    </p>
+                    <p>
+                        <b>Description: </b>
+                    </p>
+                    <p>
+                        <h:outputText value="#{bookDetailsController.currentBook.description}"/>
+                    </p>
+                    <br />
+
+                    <!-- If patron not logged in -->
+                    <h4>
+                        <b><h:outputText value="Login to request for loan or leave a comment." 
+                                         rendered="#{userController.logged eq false}" /></b>
+                    </h4>
+
+                    <!-- If patron logged in -->
+                    <h:form rendered="#{userController.logged}">
+
+                        <!-- "Borrow" button if book available -->
+                        <h:commandButton id="borrow" class="btn btn-success" 
+                                         action="#{bookDetailsController.borrowBook()}" 
+                                         value="Borrow" 
+                                         rendered="#{userController.patron and bookDetailsController.currentBook.available}">
+                            <f:param name="id" value="#{bookDetailsController.currentBook.id}" />
+                        </h:commandButton>
+
+                        <!-- If book not available -->
+                        <h:link id="unavailable" class="btn btn-success disabled" 
+                                rendered="#{!bookDetailsController.currentBook.available}">
+                            Not available
+                        </h:link>&nbsp;&nbsp;
+
+                        <!-- "Bookmark" button -->
+                        <h:commandLink class="btn btn-warning" 
+                                       onclick="return alert('Bookmark added!')"
+                                       action="#{bookDetailsController.addBookmark()}" 
+                                       rendered="#{userController.patron}" >
+                            <span class="glyphicon glyphicon-bookmark" />
+                            Bookmark
+                            <f:param name="id" value="#{bookDetailsController.currentBook.id}" />
+                        </h:commandLink>                        
+                        <br /><br />
+
+                        <!-- Comment input panel -->
+                        <h:panelGroup rendered="#{userController.patron}">
+                            <p><b>Leave a comment: </b>(2000 characters maximum)</p>
+                            <h:inputTextarea class="form-control" rows="4" value="#{bookDetailsController.newReview}" />
+                            <br />
+                            <h:commandLink class="btn btn-info" action="#{bookDetailsController.postComment()}">
+                                Submit
+                                <f:param name="id" value="#{bookDetailsController.currentBook.id}" />
+                            </h:commandLink>
+                        </h:panelGroup>
+                    </h:form>
+                </div>
+                <div class="clear">
+                    <p />
+                </div>
+                <hr />
+
+                <!-- Book's Comment List -->
+                <h4>
+                    <b>Comments</b>
+                </h4>
+                <p>
+                    <h:outputText value="No comment." rendered="#{empty bookDetailsController.currentBook.commentList}" />
+                </p>
+                <ui:repeat var="comment" value="#{bookDetailsController.currentBook.commentList}">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">                            
+                            <b><h:outputText value="#{comment.patron.name}" /></b>
+                            <h:outputText style="float: right" value="#{comment.commentDate}" />
+                        </div>
+                        <div class="panel-body">
+                            <h:outputText value="#{comment.review}" />
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

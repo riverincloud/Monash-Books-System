@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- ############## 
+    Error page in case anything goes wrong on the web site
+    ############## -->
+
+    <h:head>
+        <title>Error Page</title>
+    </h:head>
+
+    <h:body>
+        <h2 style="color:red; border:0px">
+            Unexpected Error Occurred
+        </h2>
+
+        <!-- Brief description of the error -->  
+        <h4>
+            <b>Error Message:</b> #{exceptionMessage}
+        </h4>
+
+        <!-- Click this link to show detailed descriptions of the error -->        
+        <a href="#" onmousedown="if (document.getElementById('details').style.display === 'none') {
+                    document.getElementById('details').style.display = 'block';
+                } else {
+                    document.getElementById('details').style.display = 'none';
+                }">
+            More details
+        </a>
+        <br />
+
+        <!-- Detailed description of the error occurred -->
+        <div id="details" style="border:1px solid black; display:none; background-color:#b2d5d6;">            
+            <pre>#{exceptionTrace}</pre>
+        </div>
+
+    </h:body>
+
+</html>
+
